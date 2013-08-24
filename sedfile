@@ -1,0 +1,30 @@
+
+# remove html tags ans some special tags
+s/<[a-zA-Z/][^>]*>//g 
+s/&nbsp[;=]//g 
+s/&nbsp//g 
+s/#//g 
+s/#&*;//g 
+s/&[0-9]*//g  
+
+# remove blank lines
+/^$/d 
+s/^ *//g 
+s/ *$//g 
+s/^=*//g 
+/-{2,}/d    
+
+# remove html tags between multilines 
+N;N;N;s/<[a-z/]*.*>/---------------/g 
+N;s/<[a-z/]*.*/---------------/g 
+N;s/.*>/---------------/g  
+
+# remove ;;;; lines
+/;{3,}/d 
+/[a-z0-9]{20,}/d  
+
+# remove duplacate tags
+
+s/[-_+]{5,}//g 
+s/${5,}//g
+
