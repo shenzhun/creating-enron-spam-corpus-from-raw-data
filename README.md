@@ -18,5 +18,5 @@ Details
 
 3. create new pre/ directory and sub directories
 
-4. put processed fils into them
+4. put processed fils into pre/
 
