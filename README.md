@@ -10,3 +10,13 @@ Enron Spam datasets http://csmining.org/index.php/enron-spam-datasets.html
 
 CMU Enron Email Dataset  http://www.cs.cmu.edu/~enron/
 
+Details
+--------
+1. read files from directories
+
+2. clean the raw data file by file 
+
+3. create new pre/ directory and sub directories
+
+4. put processed fils into them
+
