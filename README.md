@@ -26,6 +26,6 @@ Option 1. download [process_enron.sh](https://github.com/shenzhun/creating-enron
 
 Option 2. download [process_enron.py](https://github.com/shenzhun/creating-enron-spam-corpus-from-raw-data/blob/master/process_enron.py) and raw/, then run <code> python process_enron.py </code>, 
 
-then the process files will be in pre/.
+then the cleaned files will be in pre/.
 
 
