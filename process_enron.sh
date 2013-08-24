@@ -1,23 +1,24 @@
-#!/bin/bash
+#/bin/bash
 
 # concatination all files into one 
 #cat $(find . -name *.txt)
+rm -rf pre/
 
-tarlist=$(find . -name *.tar.gz)
-for j in $tarlist
-do 
-tar xvfz $j
-done
+cd ./raw/ham/
+find . -name '*tar.gz' -exec tar xvfz {} \; 
+cd ../spam/
+find . -name '*tar.gz' -exec tar xvfz {} \;
+cd ../..
 
-filelist=$(find . -name *.txt)
+filelist=$(find raw/ -type f | sed '/tar.gz/d')
 for i in $filelist
 do
 echo processing $i
-raw_path=$(echo $i | sed 's/[0-9].*//g')
-txt_path=$(echo $i | sed 's/\/raw/\/pre/')
+txt_path=$(echo $i | sed 's/raw/pre/g')
 echo $txt_path
-dir_path=$(echo $txt_path | sed 's/[0-9]\{5,\}.*txt//')
-mkdir -p $dir_path
+dir_path=$(echo $txt_path | grep -o '.*\/')
+echo creating $dir_path
+mkdir -pv $dir_path
 # lupper case to lower case
 cat $i | tr '[:upper:]' '[:lower:]' | tee enron.raw.all | \
 
@@ -36,6 +37,6 @@ sed -e '/;\{3,\}/d' -e '/[a-z0-9]\{20,\}/d' | \
 
 # remove duplacate tags
 sed -e 's/[-_+]\{5,\}//g' -e 's/\$\{5,\}//g' > $txt_path
-rm $i
-rmdir $raw_path
+
 done
+
