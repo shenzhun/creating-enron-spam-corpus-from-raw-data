@@ -20,3 +20,9 @@ Details
 
 4. put processed fils into pre/
 
+Howto
+------
+Option 1. download process_enron.sh and raw/, then run <code> sh process_enron.sh</code>, then the processed files will be in pre/.
+Option 2. download process_enron.py and raw/, then run <code> python process_enron.py </code>, then the process files will be in pre/.
+
+
