@@ -22,7 +22,7 @@ Details
 
 Howto
 ------
-Option 1. download process_enron.sh and raw/, then run <code> sh process_enron.sh</code>, 
+Option 1. download [process_enron.sh](https://github.com/shenzhun/creating-enron-spam-corpus-from-raw-data/blob/master/process_enron.sh) and raw/, then run <code> sh process_enron.sh</code>, 
 
 Option 2. download process_enron.py and raw/, then run <code> python process_enron.py </code>, 
 
