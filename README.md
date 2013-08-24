@@ -16,7 +16,7 @@ Details
 
 2. clean the raw data file by file 
 
-3. create new pre/ directory and sub directories
+3. create new pre/ directory and sub ham/ spam/ directories
 
 4. put processed fils into pre/
 
