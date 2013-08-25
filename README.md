@@ -28,4 +28,9 @@ Option 2. download [process_enron.py](https://github.com/shenzhun/creating-enron
 
 then the cleaned files will be in pre/.
 
+Links
+------
+1. Document Classification on Enron Email Dataset http://people.cs.umass.edu/~ronb/enron_dataset.html
+2. UC Berkeley Enron Email Analysis Project http://bailando.sims.berkeley.edu/enron_email.html
+
 
