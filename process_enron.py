@@ -5,6 +5,19 @@ import re
 import tarfile
 import subprocess
 
+def clean_html(file):
+    # First remove inline JavaScript/CSS:
+    cleaned = re.sub(r"(?is)<(script|style).*?>.*?(</\1>)", "", file)
+    # Then remove html comments. 
+    cleaned = re.sub(r"(?s)<!--(.*?)-->[\n]?", "", cleaned)
+    # Next remove the remaining tags:
+    cleaned = re.sub(r"(?s)<.*?>", " ", cleaned)
+    # Finally deal with whitespace
+    cleaned = re.sub(r"&nbsp;", " ", cleaned)
+    cleaned = re.sub(r"^$", "", cleaned)
+    cleaned = re.sub(r"  ", " ", cleaned)
+    return cleaned
+
 # paths in raw/
 raw_path = ['raw/ham/','raw/spam/']
 
@@ -28,6 +41,7 @@ for path in raw_path:
     # clean raw data files one by one 
     for i in file_list:
 	raw_html = open(i, 'r').read()
+        cleaned_html = clean_html(raw_html)
         try:
 	    # create dirs for preprocess file
 	    pre_path = 'pre' + re.search('/.*/', i).group()
@@ -38,7 +52,7 @@ for path in raw_path:
 	finally:
 	    # write preprocess files into pre/ directories
             with open(re.sub('raw/', 'pre/', i), 'w') as f:
-	        f.write(raw_html)
+	        f.write(cleaned_html)
 	        f.close()
     print 'Done'	
 
