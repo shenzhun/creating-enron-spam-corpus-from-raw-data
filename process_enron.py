@@ -5,6 +5,8 @@ import re
 import tarfile
 import subprocess
 
+from test_result import testResult
+
 def clean_html(file):
     # First remove inline JavaScript/CSS:
     cleaned = re.sub(r"(?is)<(script|style).*?>.*?(</\1>)", "", file)
@@ -15,8 +17,13 @@ def clean_html(file):
     # Finally deal with whitespace
     cleaned = re.sub(r"&nbsp;", " ", cleaned)
     cleaned = re.sub(r"^$", "", cleaned)
+    cleaned = re.sub("''|,", "", cleaned)
     cleaned = re.sub(r"  ", " ", cleaned)
     return cleaned
+
+
+# clean pre/ directory
+subprocess.check_call('sh remove_dirs.sh', shell=True)
 
 # paths in raw/
 raw_path = ['raw/ham/','raw/spam/']
@@ -56,4 +63,5 @@ for path in raw_path:
 	        f.close()
     print 'Done'	
 
-
+# testing the result
+testResult()
