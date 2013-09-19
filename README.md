@@ -35,7 +35,25 @@ for path in raw_path:
     # extracte all files except tar.gz files
     file_list = [ x for x in file_str.splitlines() if not x.endswith('tar.gz')]
 </code></pre>
+
 2. clean the raw data file by file 
+<pre><code>
+ # clean raw data files one by one 
+    for i in file_list:
+	raw_html = open(i, 'r').read()
+        cleaned_html = clean_html(raw_html)
+        try:
+	    # create dirs for preprocess file
+	    pre_path = 'pre' + re.search('/.*/', i).group()
+            os.makedirs(pre_path)
+	except OSError:
+	    # ignore exist dirs
+	    pass
+	finally:
+	    # write preprocess files into pre/ directories
+            with open(re.sub('raw/', 'pre/', i), 'w') as f:
+	        f.write(cleaned_html)
+</code></pre>
 
 3. create new pre/ directory and sub ham/ spam/ directories
 
