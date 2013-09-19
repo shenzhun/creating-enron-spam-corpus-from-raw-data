@@ -13,6 +13,8 @@ CMU Enron Email Dataset  http://www.cs.cmu.edu/~enron/
 Details
 --------
 1. read files from directories
+
+
 # paths in raw/
 raw_path = ['raw/ham/','raw/spam/']
 
