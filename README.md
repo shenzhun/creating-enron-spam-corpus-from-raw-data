@@ -1,7 +1,7 @@
 creating-enron-spam-corpus-from-raw-data
 ========================================
 
-Enron corpus is a collection of datasets that contains spam messages, and ham messages. This project use the raw data to create a spam corpus using python, nltk and shell script
+Enron corpus is a collection of datasets that contains spam messages, and ham messages. The raw data is used to create a spam corpus using python, nltk and shell script
 
 Download
 --------
@@ -13,7 +13,26 @@ CMU Enron Email Dataset  http://www.cs.cmu.edu/~enron/
 Details
 --------
 1. read files from directories
+# paths in raw/
+raw_path = ['raw/ham/','raw/spam/']
 
+for path in raw_path:
+    for root, dir, files in os.walk(path):
+	print 'Files in ' + root[:]
+
+	# untar tar.gz files one by one
+	for file in files:
+	    print 'Processing ' + file
+            file_path = root+file
+	    tar = tarfile.open(file_path)
+	    names = tar.getnames()
+	    tar.extractall(path)
+	    tar.close()
+    
+    # find all files in raw/
+    file_str = subprocess.check_output('find raw/ -type f', shell=True)
+    # extracte all files except tar.gz files
+    file_list = [ x for x in file_str.splitlines() if not x.endswith('tar.gz')]
 2. clean the raw data file by file 
 
 3. create new pre/ directory and sub ham/ spam/ directories
