@@ -14,10 +14,9 @@ Details
 --------
 1. read files from directories
 
-'
+'''
 # paths in raw/
 raw_path = ['raw/ham/','raw/spam/']
-
 for path in raw_path:
     for root, dir, files in os.walk(path):
 	print 'Files in ' + root[:]
@@ -35,7 +34,7 @@ for path in raw_path:
     file_str = subprocess.check_output('find raw/ -type f', shell=True)
     # extracte all files except tar.gz files
     file_list = [ x for x in file_str.splitlines() if not x.endswith('tar.gz')]
-'
+'''
 2. clean the raw data file by file 
 
 3. create new pre/ directory and sub ham/ spam/ directories
