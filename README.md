@@ -74,9 +74,7 @@ def clean_html(file):
 4. use naive bayes classifier to test the processed texts
 <pre><code>
 from bayesFilter_ngrams import indicate_word, label_features, evaluate_classifier
-</pre></code>
 
-<pre><code>
 # fetch corpora from enron emails into list of files
 def testResult():
 	ng = abs(int(raw_input('Enter the degree of n-gram(1-4 is suggested): ')))
