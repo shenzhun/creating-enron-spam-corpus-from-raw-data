@@ -37,6 +37,23 @@ for path in raw_path:
 
 2. clean the raw data file by file 
 <pre><code>
+def clean_html(file):
+    # First remove inline JavaScript/CSS:
+    cleaned = re.sub(r"(?is)<(script|style).*?>.*?(</\1>)", "", file)
+    # Then remove html comments. 
+    cleaned = re.sub(r"(?s)<!--(.*?)-->[\n]?", "", cleaned)
+    # Next remove the remaining tags:
+    cleaned = re.sub(r"(?s)<.*?>", " ", cleaned)
+    # Finally deal with whitespace
+    cleaned = re.sub(r"&nbsp;", " ", cleaned)
+    cleaned = re.sub(r"^$", "", cleaned)
+    cleaned = re.sub("''|,", "", cleaned)
+    cleaned = re.sub(r"  ", " ", cleaned)
+    return cleaned
+</code></pre>
+
+3. create new pre/ directory and sub ham/ spam/ directories and put all processed files into pre/
+<pre><code>
 # clean raw data files one by one 
     for i in file_list:
 	raw_html = open(i, 'r').read()
@@ -54,9 +71,45 @@ for path in raw_path:
 	        f.write(cleaned_html)
 </code></pre>
 
-3. create new pre/ directory and sub ham/ spam/ directories
+4. use naive bayes classifier to test the processed texts
+<pre><code>
+from bayesFilter_ngrams import indicate_word, label_features, evaluate_classifier
+</pre></code>
+# fetch corpora from enron emails into list of files
+def testResult():
+	ng = abs(int(raw_input('Enter the degree of n-gram(1-4 is suggested): ')))
+	while ng == 0 or ng > 4:
+                ng = abs(int(raw_input('Please re-enter the degree (1-4): ')))
+	
+        ham_files = [x for x in subprocess.check_output('find pre/ham/ -type f', shell=True).splitlines()]
+	spam_files = [x for x in subprocess.check_output('find pre/spam/ -type f', shell=True).splitlines()]
+        # divide the emails into two parts, train set and test set
+        #train_ham_filelist = ham_files[:int(len(ham_files)*0.3)]
+        #train_spam_filelist = spam_files[:int(len(spam_files)*0.3)]
+        train_spam_filelist = spam_files[:3000]
+	train_ham_filelist = ham_files[:1000]
 
-4. put processed fils into pre/
+        #test_spam_filelist = spam_files[int(len(spam_files)*0.3):]
+        #test_ham_filelist = ham_files[int(len(ham_files)*0.3):]
+        test_spam_filelist = spam_files[3000:9000]
+	test_ham_filelist = ham_files[1000:3000]
+
+        # label train and test data sets
+        train_spam = label_features(train_spam_filelist, 'spam', ng)
+        train_ham = label_features(train_ham_filelist, 'ham', ng)
+        train_set = train_spam + train_ham
+        test_spam = label_features(test_spam_filelist, 'spam', ng)
+        test_ham = label_features(test_ham_filelist, 'ham', ng)
+
+        # evaluate the Naive Bayes classifier with data sets
+        evaluate_classifier(train_set, test_spam, test_ham)
+
+if __name__ == '__main__':
+        testResult()
+
+
+<pre><code>
+
 
 Howto
 ------
