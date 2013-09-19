@@ -13,7 +13,6 @@ CMU Enron Email Dataset  http://www.cs.cmu.edu/~enron/
 Details
 --------
 1. read files from directories
-
 <pre><code>
 # paths in raw/
 raw_path = ['raw/ham/','raw/spam/']
@@ -38,7 +37,7 @@ for path in raw_path:
 
 2. clean the raw data file by file 
 <pre><code>
- # clean raw data files one by one 
+# clean raw data files one by one 
     for i in file_list:
 	raw_html = open(i, 'r').read()
         cleaned_html = clean_html(raw_html)
